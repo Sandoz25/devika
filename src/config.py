@@ -1,6 +1,15 @@
 import toml
 
 class Config:
+
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance.config = toml.load("config.toml")
+        return cls._instance
+
     def __init__(self):
         self.config = toml.load("config.toml")
 
@@ -22,6 +31,9 @@ class Config:
     def get_netlify_api_key(self):
         return self.config["API_KEYS"]["NETLIFY"]
     
+    def get_groq_api_key(self):
+        return self.config["API_KEYS"]["GROQ"]
+    
     def get_sqlite_db(self):
         return self.config["STORAGE"]["SQLITE_DB"]
     
@@ -39,6 +51,12 @@ class Config:
     
     def get_repos_dir(self):
         return self.config["STORAGE"]["REPOS_DIR"]
+    
+    def get_openai_base_url(self):
+        return self.config["API_ENDPOINTS"]["OPENAI_BASE_URL"]
+    
+    def get_search_engine(self):
+        return self.config["USER_PREFS"]["SEARCH_ENGINE"]
     
     def set_bing_api_key(self, key):
         self.config["API_KEYS"]["BING"] = key

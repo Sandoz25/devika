@@ -1,8 +1,10 @@
 from enum import Enum
+from typing import List, Tuple
 
 from .ollama_client import Ollama
 from .claude_client import Claude
 from .openai_client import OpenAI
+from .groq_client import Groq
 
 import tiktoken
 
@@ -22,12 +24,13 @@ class Model(Enum):
         )
         for model in Ollama.list_models()
     ]
+    GROQ = ("GROQ Mixtral", "mixtral-8x7b-32768")
 
 class LLM:
     def __init__(self, model_id: str = None):
         self.model_id = model_id
     
-    def list_models(self) -> list[tuple[str, str]]:
+    def list_models(self) -> List[Tuple[str, str]]:
         return [model.value for model in Model if model.name != "OLLAMA_MODELS"] + list(
             Model.OLLAMA_MODELS.value
         )
@@ -56,6 +59,8 @@ class LLM:
             response = Claude().inference(self.model_id, prompt).strip()
         elif "GPT" in str(model):
             response = OpenAI().inference(self.model_id, prompt).strip()
+        elif "GROQ" in str(model):
+            response = Groq().inference(self.model_id, prompt).strip()
         else:
             raise ValueError(f"Model {model} not supported")
 

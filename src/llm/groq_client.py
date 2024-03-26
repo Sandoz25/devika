@@ -1,15 +1,13 @@
-from openai import OpenAI as OAI
+from groq import Groq
 
 from src.config import Config
 
-class OpenAI:
-    def __init__(self):
+class Groq:
+    def __init__(self, api_key: str):
         config = Config()
-        api_key = config.get_openai_api_key()
-        base_url = config.get_openai_base_url()
-        self.client = OAI(
+        api_key = config.get_groq_api_key()
+        self.client = Groq(
             api_key=api_key,
-            base_url=base_url
         )
         
     def inference(self, model_id: str, prompt: str) -> str:
