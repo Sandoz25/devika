@@ -38,6 +38,8 @@ declare module '$env/static/private' {
 	export const CUDA_PATH_V12_3: string;
 	export const DriverData: string;
 	export const EFC_9760: string;
+	export const FPS_BROWSER_APP_PROFILE_STRING: string;
+	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
@@ -137,6 +139,8 @@ declare module '$env/dynamic/private' {
 		CUDA_PATH_V12_3: string;
 		DriverData: string;
 		EFC_9760: string;
+		FPS_BROWSER_APP_PROFILE_STRING: string;
+		FPS_BROWSER_USER_PROFILE_STRING: string;
 		GIT_ASKPASS: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;
